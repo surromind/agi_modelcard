@@ -1,0 +1,5 @@
+export const MODEL_STATES = {
+  PROJECT: 'MSPROJ',
+  STAGING: 'MSSTAG',
+  OPERATING: 'MSOPER',
+};

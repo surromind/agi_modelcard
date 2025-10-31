@@ -1,0 +1,876 @@
+{
+	"info": {
+		"_postman_id": "88e43888-2ecd-49f0-a164-8b1d32a7066b",
+		"name": "model card api ver.2024011601",
+		"description": "모델카드 api 초안입니다",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26157074",
+		"_collection_link": "https://martian-firefly-342727.postman.co/workspace/f00c74ee-29d1-490a-aa1e-0580d13743cb/collection/26157074-88e43888-2ecd-49f0-a164-8b1d32a7066b?action=share&source=collection_link&creator=26157074"
+	},
+	"item": [
+		{
+			"name": "model",
+			"item": [
+				{
+					"name": "/models",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/models?task=&library=&license=&title=&page=&sort=",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"models"
+							],
+							"query": [
+								{
+									"key": "task",
+									"value": "",
+									"description": "기존 category2, 하나 또는 여러개의 id"
+								},
+								{
+									"key": "library",
+									"value": "",
+									"description": "기존 framework, 하나 또는 여러개의 id"
+								},
+								{
+									"key": "license",
+									"value": "",
+									"description": "하나 또는 여러개의 id"
+								},
+								{
+									"key": "title",
+									"value": "",
+									"description": "제목의 일부, string"
+								},
+								{
+									"key": "page",
+									"value": "",
+									"description": "페이지 이동, integer"
+								},
+								{
+									"key": "sort",
+									"value": "",
+									"description": "정렬 기준, title / created_at / updated_at / downloaded"
+								},
+								{
+									"key": "order",
+									"value": "",
+									"description": "오름차순 내림차순, desc / asc",
+									"disabled": true
+								}
+							]
+						},
+						"description": "모델 목록을 불러오는 api입니다\n\nparam을 통해 표시할 카테고리 필터링과 쿼리, 페이지를 전송합니다\n\npagination 형태 참조 : [https://uriyyo-fastapi-pagination.netlify.app/tutorials/links-pagination/](https://uriyyo-fastapi-pagination.netlify.app/tutorials/links-pagination/)"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/models?task=1,8,12&library=1&license=2&title=vision&page=1&sort=title",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"models"
+									],
+									"query": [
+										{
+											"key": "task",
+											"value": "1,8,12",
+											"description": "ids"
+										},
+										{
+											"key": "library",
+											"value": "1",
+											"description": "ids"
+										},
+										{
+											"key": "license",
+											"value": "2",
+											"description": "ids"
+										},
+										{
+											"key": "title",
+											"value": "vision",
+											"description": "string"
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"description": "integer"
+										},
+										{
+											"key": "sort",
+											"value": "title",
+											"description": "createdAt / updatedAt / title / download"
+										},
+										{
+											"key": "order",
+											"value": "",
+											"description": "desc / asc",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"page\": 1,\r\n    \"pages\": 1,\r\n    \"total\": 1,\r\n    \"links\": {\r\n        \"first\": \"modelcard.surromind.ai/api/v1/models?task=1,8,12&library=1&license=2&title=vision&page=1&sort=title\",\r\n        \"last\": \"modelcard.surromind.ai/api/v1/models?task=1,8,12&library=1&license=2&title=vision&page=1&sort=title\",\r\n        \"self\": \"modelcard.surromind.ai/api/v1/models?task=1,8,12&library=1&license=2&title=vision&page=1&sort=title\",\r\n        \"next\": \"modelcard.surromind.ai/api/v1/models?task=1,8,12&library=1&license=2&title=vision&page=1&sort=title\",\r\n        \"prev\": \"modelcard.surromind.ai/api/v1/models?task=1,8,12&library=1&license=2&title=vision&page=1&sort=title\"\r\n    },\r\n    \"items\": [\r\n        {\r\n            \"id\": 5,\r\n            \"name\": \"new vision 2\",\r\n            \"description\": \"updated vision model2\",\r\n            \"task\": \"object detection\",\r\n            \"library\": \"pytorch\",\r\n            \"license\": \"mit\",\r\n            \"example_result\": \"modelcard.surromind.ai/api/v1/files/12.jpg\",\r\n            \"created_at\": \"2024-01-02T12:23:45.234\",\r\n            \"created_by\": \"관리자\",\r\n            \"updated_at\": \"2024-01-02T12:23:45.234\",\r\n            \"updated_by\": \"관리자\",\r\n            \"downloaded\": 9\r\n        },\r\n        {\r\n            \"id\": 1,\r\n            \"name\": \"vision_1\",\r\n            \"description\": \"vision model 1\",\r\n            \"task\": \"object detection\",\r\n            \"library\": \"pytorch\",\r\n            \"license\": \"mit\",\r\n            \"example_result\": \"modelcard.surromind.ai/api/v1/files/1.jpg\",\r\n            \"created_at\": \"2024-01-01T12:23:45.234\",\r\n            \"created_by\": \"관리자\",\r\n            \"updated_at\": \"2024-01-01T12:23:45.234\",\r\n            \"updated_by\": \"관리자\",\r\n            \"downloaded\": 7\r\n        },\r\n        {\r\n            \"id\": 12,\r\n            \"name\": \"vision_12\",\r\n            \"description\": \"vision model 12\",\r\n            \"task\": \"instance segmentation\",\r\n            \"library\": \"pytorch\",\r\n            \"license\": \"mit\",\r\n            \"example_result\": \"modelcard.surromind.ai/api/v1/files/31.jpg\",\r\n            \"created_at\": \"2024-01-03T12:23:45.234\",\r\n            \"created_by\": \"관리자\",\r\n            \"updated_at\": \"2024-01-03T12:23:45.234\",\r\n            \"updated_by\": \"관리자\",\r\n            \"downloaded\": 12\r\n        }\r\n    ]\r\n}"
+						}
+					]
+				},
+				{
+					"name": "/models",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "",
+									"contentType": "",
+									"description": "card title",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "datatype",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "task",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "library",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "license",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "dockerfile",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "markdown",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "example_image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "sample_dataset",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								},
+								{
+									"key": "external_description_markdown",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/models",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"models"
+							]
+						},
+						"description": "모델 카드를 생성하는 api입니다"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "",
+											"contentType": "",
+											"description": "카드 제목, string",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "",
+											"description": "한줄 설명, string",
+											"type": "text"
+										},
+										{
+											"key": "datatype",
+											"value": "",
+											"description": "모델이 활용되는 데이터 영역, id",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "task",
+											"value": "",
+											"description": "모델이 수행하는 작업, id",
+											"type": "text"
+										},
+										{
+											"key": "library",
+											"value": "",
+											"description": "모델에 사용된 라이브러리(프레임워크), id",
+											"type": "text"
+										},
+										{
+											"key": "license",
+											"value": "",
+											"description": "모델에 적용되는 라이센스, id",
+											"type": "text"
+										},
+										{
+											"key": "gitlab_url",
+											"value": "",
+											"description": "깃랩 리포지터리 주소, string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "harbor_url",
+											"value": "",
+											"description": "하버 이미지 주소, string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "model_file",
+											"description": "업로드할 모델 파일, file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "markdown",
+											"description": "상세 설명에 표시될 마크다운 문서(README.md), file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "example_image",
+											"description": "결과 화면 예시 이미지, file",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/models",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"models"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"message\": \"created\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "/models/{model id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/models/{{model_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"models",
+								"{{model_id}}"
+							]
+						},
+						"description": "모델의 상세정보를 조회하는 api입니다"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/models/5",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"models",
+										"5"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": 5,\n    \"name\": \"new vision 2\",\n    \"description\": \"updated vision model2\",\n    \"task\": \"object detection\",\n    \"library\": \"pytorch\",\n    \"license\": \"mit\",\n    \"example_result\": \"modelcard.surromind.ai/api/v1/files/1.jpg\",\n    \"markdown_url\": \"modelcard.surromind.ai/api/v1/files/5/README.md\",\n    \"created_at\": \"2024-01-02T12:23:45.234\",\n    \"created_by\": \"관리자\",\n    \"updated_at\": \"2024-01-02T12:23:45.234\",\n    \"updated_by\": \"관리자\",\n    \"downloaded\": 9\n}"
+						}
+					]
+				},
+				{
+					"name": "/models/{model id}",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "title",
+									"value": "",
+									"contentType": "\n",
+									"description": "카드 제목",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "",
+									"description": "모델에 대한 한줄 설명",
+									"type": "text"
+								},
+								{
+									"key": "datatype",
+									"value": "",
+									"description": "모델이 다루는 데이터 형태",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "task",
+									"value": "",
+									"description": "작업 목표",
+									"type": "text"
+								},
+								{
+									"key": "library",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "license",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "gitlab_url",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "harbor_url",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "state",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "model_file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "markdown",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "example_image",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/models/{{model_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"models",
+								"{{model_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "",
+											"contentType": "\n",
+											"description": "카드 제목, string",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "",
+											"description": "한줄 설명, string",
+											"type": "text"
+										},
+										{
+											"key": "datatype",
+											"value": "",
+											"description": "모델이 활용되는 데이터 영역, id",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "task",
+											"value": "",
+											"description": "모델이 수행하는 작업, id",
+											"type": "text"
+										},
+										{
+											"key": "library",
+											"value": "",
+											"description": "모델에 사용된 라이브러리(프레임워크), id",
+											"type": "text"
+										},
+										{
+											"key": "license",
+											"value": "",
+											"description": "모델에 적용되는 라이센스, id",
+											"type": "text"
+										},
+										{
+											"key": "gitlab_url",
+											"value": "",
+											"description": "깃랩 리포지터리 주소, string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "harbor_url",
+											"value": "",
+											"description": "하버 이미지 주소, string",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "model_file",
+											"description": "업로드할 모델 파일, file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "markdown",
+											"description": "상세 설명에 표시될 마크다운 문서(README.md), file",
+											"type": "file",
+											"src": []
+										},
+										{
+											"key": "example_image",
+											"description": "결과 화면 예시 이미지, file",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{url}}/models/5",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"models",
+										"5"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"updated\"\n}"
+						}
+					]
+				},
+				{
+					"name": "/models/{model id}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/models/{{model_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"models",
+								"{{model_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/models/12",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"models",
+										"12"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"message\": \"deleted\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "/models/{model id}/inference",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/models/{{model_id}}/inference",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"models",
+								"{{model_id}}",
+								"inference"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/models/5/inference",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"models",
+										"5",
+										"inference"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"input\": \"modelcard.surromind.ai/api/v1/files/51.jpg\",\r\n    \"task_id\": \"1b9bc5d0-ffaf-36e1-8c3b-2d8e99f6c346\"\r\n}"
+						}
+					]
+				}
+			],
+			"description": "모델 카드의 crud, 그리고 준비된 테스트 파일을 통한 추론을 진행하는 api 목록입니다"
+		},
+		{
+			"name": "category",
+			"item": [
+				{
+					"name": "/categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"categories"
+							]
+						},
+						"description": "Data type - Task 계층의 카테고리 목록을 불러오는 api 입니다"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/categories",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"categories"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "{\r\n    \"Computer Vision\" : [\r\n        \"Semantic Segmentation\",\r\n        \"Image Encoder\",\r\n        \"Hand Pose Estimation\",\r\n        \"Action Recognition\",\r\n        \"Object Detection\",\r\n        \"Panoptic Segmentation\",\r\n        \"Pose Estimation\"\r\n    ],\r\n    \"Time(Audio)\" : [\r\n        \"Anormaly Detection\",\r\n        \"Time series Detection\"\r\n    ],\r\n    \"Text\" : [\r\n        \"Regression\",\r\n        \"Classification\"\r\n    ],\r\n    \"Multi modal\" : [\r\n        \"VQA\"\r\n    ]\r\n}"
+						}
+					]
+				},
+				{
+					"name": "/libraries",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/libraries",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"libraries"
+							]
+						},
+						"description": "모델 생성 과정에 사용된 라이브러리의 목록을 불러오는 api 입니다"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/libraries",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"libraries"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "[\r\n    \"pytorch\",\r\n    \"tensorflow\",\r\n    \"keras\"\r\n]"
+						}
+					]
+				},
+				{
+					"name": "/licenses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/licenses",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"licenses"
+							]
+						},
+						"description": "모델에 적용되는 라이센스의 목록을 불러오는 api입니다"
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/licenses",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"licenses"
+									]
+								}
+							},
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"name": "Content-Type",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"body": "[\n    \"apache 2.0\",\n    \"mit\",\n    \"BSD\"\n]"
+						}
+					]
+				}
+			],
+			"description": "다음을 위해 선택 가능한 목록을 불러오는 기능입니다\n\n- 목록화면에서 표시할 모델 카드 필터링\n- 모델 카드 작성시 드롭다운을 통한 입력"
+		},
+		{
+			"name": "mutlimedia",
+			"item": [
+				{
+					"name": "/files/{file_id}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/files/{{file_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"files",
+								"{{file_id}}"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "New Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "file",
+									"file": {}
+								},
+								"url": {
+									"raw": "{{url}}/files/{{file_id}}",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"files",
+										"{{file_id}}"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				}
+			],
+			"description": "페이지에 표시될 파일을 서버에서 전송하기 위한 api 입니다\n\nex) 상세보기 내의 결과 화면 예시, 테스트 진행 후 추론 결과"
+		}
+	]
+}
