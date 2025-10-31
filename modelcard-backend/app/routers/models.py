@@ -4,19 +4,12 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi_pagination import paginate
 from sqlalchemy.orm import Session
 
-from app.consts.git import Filepath
 from app.consts.models import ModelStage
-from app.core.devops_tools.gitlab_tools import (
-    GitLabFileReader,
-    extract_group_project_from_gitlab_url,
-)
-from app.core.markdown import markdown_asset_img_encoder
 from app.core.pagination.page import ModelCardPage
 from app.db_models import Model
 from app.dependencies.db.connect import get_db
 from app.schemas.models import (
     ModelCardCreateRequest,
-    ModelCardDetail,
     ModelCardListRequest,
     ModelCardSchema,
     ModelCardUpdateRequest,
@@ -58,7 +51,7 @@ def get_models(
     return paginate(model_items)
 
 
-@router.get("/{model_id}", response_model=ModelCardDetail)
+@router.get("/{model_id}", response_model=ModelCardSchema)
 def get_model(*, db: Session = Depends(get_db), model_id: int):
     return model_service.get(db=db, pk=model_id, filter_deleted=True)
 

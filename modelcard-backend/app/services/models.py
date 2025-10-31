@@ -16,19 +16,14 @@ Usage:
 3. Generate reports and documentation related to Model Cards using the business logic
     defined in this module.
 """
+
 from datetime import datetime
 from typing import List, Optional
 
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
-from app.consts.git import Filepath
 from app.consts.models import ModelStage
-from app.core.devops_tools.gitlab_tools import GitLabFileReader
-from app.core.devops_tools.gitlab_tools.util import (
-    extract_group_project_from_gitlab_url,
-)
-from app.core.markdown import markdown_asset_img_encoder
 from app.db_models.model_card import Model
 from app.repos.models import model_card_repository
 from app.schemas.models import (
@@ -49,37 +44,6 @@ class ModelService:
         db_model = model_card_repository.get(db, pk, filter_deleted=filter_deleted)
         if db_model is None:
             raise HTTPException(status_code=404, detail="Model not found")
-        db_model = self._add_gitlab_data(db_model)
-        return db_model
-
-    def _add_gitlab_data(self, db_model: Model) -> Model:
-        group, project = extract_group_project_from_gitlab_url(db_model.git_url)
-        gitlab_file_reader = GitLabFileReader(group=group, project=project)
-        db_model = self._add_inference_config(db_model, gitlab_file_reader)
-        db_model = self._add_readme(db_model, gitlab_file_reader)
-        return db_model
-
-    @staticmethod
-    def _add_inference_config(
-        db_model: Model, gitlab_file_reader: GitLabFileReader
-    ) -> Model:
-        inference_config = gitlab_file_reader.fetch_json_file(Filepath.INFERENCE.value)
-        db_model.inference = {
-            "address": inference_config.get("ip") if inference_config else None,
-            "port": inference_config.get("port") if inference_config else None,
-        }
-        return db_model
-
-    @staticmethod
-    def _add_readme(db_model: Model, gitlab_file_reader: GitLabFileReader) -> Model:
-        document = gitlab_file_reader.fetch_file_content(Filepath.DOCUMENT.value)
-        db_model.document = (
-            markdown_asset_img_encoder(
-                markdown_file=document, gitlab_file_reader=gitlab_file_reader
-            )
-            if document
-            else "Please add README.md"
-        )
         return db_model
 
     @staticmethod
@@ -108,7 +72,7 @@ class ModelService:
 
     @staticmethod
     def update(*, db: Session, db_model: Model, model_in: ModelCardUpdateRequest):
-        # TODO: ROUND1 이후 재 활성화 (미사 용 기능으로 주석 처리)
+        # TODO: ROUND1 이후 재활성화 (미사용 기능으로 주석 처리)
         # if db_model.state == ModelStage.PROJECT.value and model_in.state == ModelStage.STAGING:
         #     group, project = extract_group_project_from_gitlab_url(model_in.git_url)
         #     dockerfile_content = GitLabFileReader(group=group, project=project).fetch_file_content(

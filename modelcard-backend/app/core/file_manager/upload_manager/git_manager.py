@@ -10,15 +10,15 @@ DOCKERFILE = "Dockerfile"
 
 
 class GitUploadManager(BaseUploadManager):
-    def __init__(self, gitlab_url, image_name: str):
+    def __init__(self, git_url, image_name: str):
         """
-        get dockerfile from gitlab and upload it to
-        :param gitlab_url:
+        get dockerfile from gitlab/github and upload it to
+        :param git_url:
         """
         super().__init__()
-        self.gitlab_url = gitlab_url
-        # TODO: add gitlab token
-        self.gitlab_token = ""
+        self.git_url = git_url
+        # TODO: add gitlab/github token
+        self.git_token = ""
         self.image_name = image_name
 
     def upload_file(self):
@@ -32,7 +32,7 @@ class GitUploadManager(BaseUploadManager):
         """
 
         # read Dockerfile content
-        dockerfile_content = git_read_file(self.gitlab_url, DOCKERFILE)
+        dockerfile_content = git_read_file(self.git_url, DOCKERFILE)
         # create a Dockerfile
         if dockerfile_content is None:
             return None

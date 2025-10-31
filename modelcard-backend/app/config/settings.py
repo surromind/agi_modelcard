@@ -53,9 +53,6 @@ class Settings(BaseSettings):
     DB_HOST: str = os.getenv("DB_HOST")
     DB_PORT: str = os.getenv("DB_PORT")
 
-    GITLAB_URL: str = os.getenv("GITLAB_URL")
-    GITLAB_PRIVATE_TOKEN: str = os.getenv("GITLAB_PRIVATE_TOKEN")
-
     HARBOR_URL: str = os.getenv("HARBOR_URL")
     HARBOR_USER_NAME: str = os.getenv("HARBOR_USER_NAME")
     HARBOR_PASSWORD: str = os.getenv("HARBOR_PASSWORD")
