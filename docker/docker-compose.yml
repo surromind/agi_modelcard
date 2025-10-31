@@ -2,7 +2,7 @@ services:
   agi-modelcard-postgres:
     container_name: agi-modelcard-postgres
     build: 
-      context: ../../modelcard
+      context: ../../agi-modelcard
       dockerfile: docker/postgres/Dockerfile.postgres
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -12,7 +12,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - ../../modelcard/data/postgres_data:/var/lib/postgresql/data
+      - ../../agi-modelcard/data/postgres_data:/var/lib/postgresql/data
 
   # agi-modelcard-redis:
   #   container_name: modelcard-redis
@@ -23,7 +23,7 @@ services:
   agi-modelcard-backend:
     container_name: agi-modelcard-backend
     build:
-      context: ../../modelcard
+      context: ../../agi-modelcard
       dockerfile: docker/backend/Dockerfile.dev
     ports:
       - "${BACKEND_PORT}:80"
@@ -31,12 +31,12 @@ services:
       - agi-modelcard-postgres
       #- redis
     volumes:
-      - ../../modelcard/modelcard-backend:/src
+      - ../../agi-modelcard/modelcard-backend:/src
 
   agi-modelcard-frontend:
     container_name: agi-modelcard-frontend
     build:
-      context: ../../modelcard
+      context: ../../agi-modelcard
       dockerfile: docker/frontend/Dockerfile.dev
     ports:
       - "${FRONTEND_PORT}:3000"
@@ -45,7 +45,7 @@ services:
     depends_on:
       - agi-modelcard-backend
     volumes:
-      - ../../modelcard/modelcard-frontend:/app
+      - ../../agi-modelcard/modelcard-frontend:/app
       - /app/node_modules
 
 
