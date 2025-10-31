@@ -68,10 +68,6 @@ To configure your development environment, you need to create a .env file in the
    DB_HOST=your_db_host
    DB_PORT=your_db_port
 
-   # GitLab Configuration
-   GITLAB_URL=your_gitlab_url
-   GITLAB_PRIVATE_TOKEN=your_gitlab_private_token
-
    # Harbor Registry Configuration
    HARBOR_URL=your_harbor_url
    HARBOR_USER_NAME=your_harbor_username

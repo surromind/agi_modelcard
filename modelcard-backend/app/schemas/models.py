@@ -36,13 +36,6 @@ class ModelCardSchema(BaseSchema):
     file_unit: Optional[str] = None
 
 
-class ModelCardDetail(ModelCardSchema):
-    model_config = ConfigDict(from_attributes=True)
-
-    document: str
-    inference: Dict[str, Any]
-
-
 class ModelCardCreateRequest(BaseModel):
     name: str
     description: str
