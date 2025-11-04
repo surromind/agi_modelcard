@@ -20,7 +20,7 @@ export const formValidation = {
       case 'license_id':
         return 'license를 선택해주세요.';
       case 'git_url':
-        return `${state} Repository gitlab 링크를 첨부해주세요.`;
+        return `${state} Repository github 링크를 첨부해주세요.`;
       default:
         return '필수 값을 입력해주세요.';
     }

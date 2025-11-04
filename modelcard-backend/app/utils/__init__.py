@@ -59,3 +59,43 @@ def transform_size_with_unit(filesize_bytes: Union[int, Any]) -> Tuple[float, st
             return round(filesize_bytes / unit.value, 1), unit.name
 
     return filesize_bytes, FileSizeUnit.B.name
+
+
+def convert_to_raw_url(git_url):
+    """
+    GitHub 저장소 URL을 raw README URL로 변환합니다.
+
+    Args:
+        git_url (str): GitHub 저장소 URL
+
+    Returns:
+        str: raw README URL
+    """
+    # https://github.com/user/repo -> https://raw.githubusercontent.com/user/repo/main/README.md
+    # https://github.com/user/repo.git -> https://raw.githubusercontent.com/user/repo/main/README.md
+
+    git_url = git_url.rstrip("/")
+    git_url = git_url.replace(".git", "")
+
+    if "github.com" in git_url:
+        parts = git_url.replace("https://github.com/", "").split("/")
+        if len(parts) >= 2:
+            user, repo = parts[0], parts[1]
+            # main 브랜치 시도, 실패하면 master 시도
+            raw_url = f"https://raw.githubusercontent.com/{user}/{repo}/main/README.md"
+
+            # main 브랜치 확인
+            try:
+                response = requests.head(raw_url, timeout=5)
+                if response.status_code == 200:
+                    return raw_url
+            except:
+                pass
+
+            # master 브랜치 시도
+            raw_url = (
+                f"https://raw.githubusercontent.com/{user}/{repo}/master/README.md"
+            )
+            return raw_url
+
+    return git_url

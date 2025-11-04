@@ -17,7 +17,7 @@ celery = "==5.3.6"
 redis = "==5.0.1"
 uvicorn = "==0.27.0"
 docker = "==7.0.0"
-marko = "==2.0.2"
+markdown = "==3.9.0"
 beautifulsoup4 = "==4.12.3"
 fastapi-pagination = "==0.12.17"
 

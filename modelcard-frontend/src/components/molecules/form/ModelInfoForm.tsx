@@ -583,7 +583,7 @@ const ModelInfoForm = (props:IModelInfoFormProps):React.ReactNode => {
           </FormRow>
 
           <FormRow $isRequired>
-            <label>gitlab 링크</label>
+            <label>github 링크</label>
             <ControllerContainer>
               <Controller
                 name="git_url"
@@ -600,7 +600,7 @@ const ModelInfoForm = (props:IModelInfoFormProps):React.ReactNode => {
                   <ModelFormInput
                     {...field}
                     $isError={!!errors?.git_url?.message}
-                    $placeholder={`${gitUrlValidationStateName()} Repository gitlab 링크를 첨부해주세요.`}
+                    $placeholder={`${gitUrlValidationStateName()} Repository github 링크를 첨부해주세요.`}
                   />
                 )}
               />

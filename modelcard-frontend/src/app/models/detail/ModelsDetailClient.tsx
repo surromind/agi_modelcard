@@ -76,7 +76,7 @@ const ModelDetailClient = (): React.ReactNode => {
             <div className="gitUrl">
               <div className="title">
                 <img src={icLink.src} alt="" />
-                <span>gitlab 링크</span>
+                <span>github 링크</span>
               </div>
               <a className="url" href={modelDetail.git_url} target="_blank" rel="noreferrer">{modelDetail.git_url}</a>
             </div>
