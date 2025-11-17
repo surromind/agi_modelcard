@@ -19,6 +19,8 @@ Usage:
 
 from datetime import datetime
 from typing import List, Optional
+import requests
+import markdown
 
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
@@ -33,7 +35,9 @@ from app.schemas.models import (
     ModelCardUpdate,
     ModelCardUpdateRequest,
 )
-from app.tasks import deploy_image_to_harbor_task
+
+# from app.tasks import deploy_image_to_harbor_task
+from app.utils import convert_to_raw_url
 
 # TODO: remove hardcoded username after user authorization applied
 ADMIN_USER = "admin"
@@ -44,7 +48,45 @@ class ModelService:
         db_model = model_card_repository.get(db, pk, filter_deleted=filter_deleted)
         if db_model is None:
             raise HTTPException(status_code=404, detail="Model not found")
+        db_model = self._add_readme(db_model)
         return db_model
+
+    @staticmethod
+    def _add_readme(db_model: Model):
+        """
+        GitHub URL에서 README를 가져와 HTML로 변환합니다.
+
+        Args:
+            git_url (str): GitHub 저장소 URL (예: https://github.com/surromind/leap)
+
+        Returns:
+            str: 변환된 HTML 문자열 (프론트엔드의 dangerouslySetInnerHTML에 사용)
+        """
+        try:
+            # GitHub URL을 raw URL로 변환
+            raw_url = convert_to_raw_url(db_model.git_url)
+
+            # README 파일 가져오기
+            response = requests.get(raw_url, timeout=10)
+            response.raise_for_status()
+            markdown_text = response.text
+
+            # Markdown을 HTML로 변환
+            html = markdown.markdown(
+                markdown_text,
+                extensions=[
+                    "extra",  # 테이블, 각주 등
+                    "codehilite",  # 코드 하이라이팅
+                    "toc",  # 목차
+                    "nl2br",  # 줄바꿈
+                    "sane_lists",  # 리스트 처리
+                ],
+            )
+            db_model.document = html
+        except Exception as e:
+            db_model.document = f"README 변환 실패: {e}"
+        finally:
+            return db_model
 
     @staticmethod
     def get_list(*, db: Session, filter_in: ModelCardListRequest) -> List[Model]:

@@ -41,5 +41,5 @@ export const commonUtils = {
      * @description gitLab repo 주소 validation 체크
      * @param value
      */
-  isValidSurroLink: (value:string) => /^https:\/\/gitlab\.surromind\.ai\/[^\s]*$/.test(value),
+  isValidSurroLink: (value:string) => /^https:\/\/github\.com\/[^\/]+\/[^\/\s]+(\/.*)?$/.test(value),
 };

@@ -36,6 +36,12 @@ class ModelCardSchema(BaseSchema):
     file_unit: Optional[str] = None
 
 
+class ModelCardDetail(ModelCardSchema):
+    model_config = ConfigDict(from_attributes=True)
+
+    document: str
+
+
 class ModelCardCreateRequest(BaseModel):
     name: str
     description: str

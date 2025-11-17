@@ -13,4 +13,3 @@ starlette==0.35.1
 celery==5.3.6
 redis==5.0.1
 flower==2.0.1
-docker==7.0.0

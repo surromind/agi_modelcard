@@ -12,6 +12,7 @@ from app.schemas.models import (
     ModelCardCreateRequest,
     ModelCardListRequest,
     ModelCardSchema,
+    ModelCardDetail,
     ModelCardUpdateRequest,
 )
 from app.services.models import ModelService
@@ -51,7 +52,7 @@ def get_models(
     return paginate(model_items)
 
 
-@router.get("/{model_id}", response_model=ModelCardSchema)
+@router.get("/{model_id}", response_model=ModelCardDetail)
 def get_model(*, db: Session = Depends(get_db), model_id: int):
     return model_service.get(db=db, pk=model_id, filter_deleted=True)
 
