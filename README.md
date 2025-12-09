@@ -18,14 +18,11 @@ ModelCard Platform은 본 과제에서 개발되는 다양한 인공지능 모�
 
 ## 주요 기능
 - 모델 메타데이터 관리
-- 모델 버전 관리
-- 모델 성능 추적 및 평가
 - 모델 문서화 및 공유
 
 ## 프로젝트 구조
 - `modelcard-backend/`: 백엔드 서버
 - `modelcard-frontend/`: 프론트엔드 애플리케이션
 - `docker/`: Docker 설정 파일
-- `data/`: 데이터 저장소
 
 
