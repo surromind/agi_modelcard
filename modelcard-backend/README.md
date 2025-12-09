@@ -1,6 +1,6 @@
-# AI Studio Models
+# AGI Models
 
-Welcome to **AI Studio Models** - your centralized hub for managing and leveraging SURROMIND's AI model outputs for ML processes, B2B sales promotion, and more. Our platform brings together scattered AI models to enhance reuse, management, and external presentation, aiming to improve customer trust, simplify managerial oversight, and accelerate model integration into ML processes.
+Welcome to **AGI Models** - your centralized hub for managing and leveraging SURROMIND's AI model outputs for ML processes, B2B sales promotion, and more. Our platform brings together scattered AI models to enhance reuse, management, and external presentation, aiming to improve customer trust, simplify managerial oversight, and accelerate model integration into ML processes.
 
 ## Challenges
 
@@ -28,7 +28,7 @@ To collect and organize SURROMIND's AI model outputs scattered across various pr
 - **Systematic Management:** Organize and manage AI models produced through various channels with model cards.
 - **Rapid Discovery and Testing:** Enable fast search capabilities for SURROMIND's pre-trained AI models and provide a platform for immediate testing.
 
-Let's embark on a journey towards enhanced model manageability, increased trust, and streamlined processes with **AI Studio Models**.
+Let's embark on a journey towards enhanced model manageability, increased trust, and streamlined processes with **AGI Models**.
 
 
 ## For Developer
