@@ -7,6 +7,7 @@ import {
 import styled from 'styled-components';
 
 import ModelFormInput from '@/components/atoms/input/ModelFormInput';
+import ModelFormFileInput from '@/components/atoms/input/ModelFormFileInput';
 import ModelFormSelectBox from '@/components/atoms/selectbox/ModelFormSelectBox';
 import { toRem } from '@/utils/styleUtil';
 import commonColors from '@/constants/colors';
@@ -215,7 +216,7 @@ const ModelInfoForm = (props:IModelInfoFormProps):React.ReactNode => {
 
   const [isDisabled, setIsDisabled] = useState(true);
   const watchAll = watch(['name', 'description', 'performance_score',
-    'performance_metric', 'size', 'model_type_id', 'task_id', 'framework_id', 'license_id', 'git_url']);
+    'performance_metric', 'size', 'model_type_id', 'task_id', 'framework_id', 'license_id', 'git_url', 'model_documentation_file']);
 
   useEffect(() => {
     if (isEdit && Object.keys(errors).length < 1) {
@@ -302,7 +303,7 @@ const ModelInfoForm = (props:IModelInfoFormProps):React.ReactNode => {
           </FormRow>
 
           <FormRow $isRequired>
-            <label>한줄설명</label>
+            <label>한 줄 설명</label>
             <ControllerContainer>
               <Controller
                 name="description"
@@ -318,7 +319,7 @@ const ModelInfoForm = (props:IModelInfoFormProps):React.ReactNode => {
                   <ModelFormInput
                     {...field}
                     $isTextCount
-                    $textMaxLength={40}
+                    $textMaxLength={100}
                     $isError={!!errors?.description?.message}
                     $placeholder="한 줄 설명을 입력해주세요."
                   />
@@ -582,7 +583,7 @@ const ModelInfoForm = (props:IModelInfoFormProps):React.ReactNode => {
             </ControllerContainer>
           </FormRow>
 
-          <FormRow $isRequired>
+          <FormRow>
             <label>github 링크</label>
             <ControllerContainer>
               <Controller
@@ -590,10 +591,12 @@ const ModelInfoForm = (props:IModelInfoFormProps):React.ReactNode => {
                 control={control}
                 defaultValue=""
                 rules={{
-                  required: validationErrorMsg('git_url', gitUrlValidationStateName()),
                   onBlur: (e) => {
-                    onBlurIsEmptyValidation(e, 'git_url', gitUrlValidationStateName());
-                    onBlurIsLinkValidation(e, 'git_url', gitUrlValidationStateName());
+                    if (e.target.value) {
+                      onBlurIsLinkValidation(e, 'git_url', gitUrlValidationStateName());
+                    } else {
+                      clearErrors('git_url');
+                    }
                   },
                 }}
                 render={({ field }) => (
@@ -605,6 +608,58 @@ const ModelInfoForm = (props:IModelInfoFormProps):React.ReactNode => {
                 )}
               />
               { errors?.git_url?.message ? <p>{errors?.git_url?.message}</p> : null }
+            </ControllerContainer>
+          </FormRow>
+
+          <FormRow>
+            <label>Readme 파일</label>
+            <ControllerContainer>
+              <Controller
+                name="model_documentation_file"
+                control={control}
+                rules={{
+                  required: !$isEdit && validationErrorMsg('model_documentation_file'),
+                  validate: (value) => {
+                    if (value && value.length > 0) {
+                      const file = value[0];
+                      if (file.size > 10 * 1024 * 1024) {
+                        return 'File size should not exceed 10MB';
+                      }
+                      if (!file.name.toLowerCase().endsWith('.md')) {
+                        return 'Only .md files are allowed';
+                      }
+                    }
+                    return true;
+                  },
+                }}
+                render={({ field: { onChange, onBlur, name, ref } }) => (
+                  <ModelFormFileInput
+                    name={name}
+                    ref={ref}
+                    onChange={async (e) => {
+                      const files = e.target.files;
+                      onChange(files);
+                      
+                      // 파일을 읽어서 텍스트로 변환
+                      if (files && files.length > 0) {
+                        const file = files[0];
+                        try {
+                          const text = await file.text();
+                          setValue('documentation_markdown', text);
+                        } catch (error) {
+                          console.error('파일 읽기 실패:', error);
+                        }
+                      } else {
+                        setValue('documentation_markdown', null);
+                      }
+                    }}
+                    onBlur={onBlur}
+                    $isError={!!errors?.model_documentation_file?.message}
+                    accept=".md"
+                  />
+                )}
+              />
+              { errors?.model_documentation_file?.message ? <p>{errors?.model_documentation_file?.message as string}</p> : null }
             </ControllerContainer>
           </FormRow>
         </FormContents>

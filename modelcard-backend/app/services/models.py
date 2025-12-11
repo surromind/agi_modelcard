@@ -54,35 +54,43 @@ class ModelService:
     @staticmethod
     def _add_readme(db_model: Model):
         """
-        GitHub URL에서 README를 가져와 HTML로 변환합니다.
+        문서를 HTML로 변환합니다.
+        먼저 documentation_markdown이 있으면 사용하고, 없으면 GitHub에서 가져옵니다.
 
         Args:
-            git_url (str): GitHub 저장소 URL (예: https://github.com/surromind/leap)
+            db_model: Model 인스턴스
 
         Returns:
-            str: 변환된 HTML 문자열 (프론트엔드의 dangerouslySetInnerHTML에 사용)
+            Model: document 속성이 설정된 Model 인스턴스
         """
         try:
-            # GitHub URL을 raw URL로 변환
-            raw_url = convert_to_raw_url(db_model.git_url)
+            markdown_text = None
 
-            # README 파일 가져오기
-            response = requests.get(raw_url, timeout=10)
-            response.raise_for_status()
-            markdown_text = response.text
+            # DB에 저장된 마크다운이 있으면 사용
+            if db_model.documentation_markdown:
+                markdown_text = db_model.documentation_markdown
+            # 없으면 GitHub에서 가져오기 시도
+            elif db_model.git_url:
+                raw_url = convert_to_raw_url(db_model.git_url)
+                response = requests.get(raw_url, timeout=10)
+                response.raise_for_status()
+                markdown_text = response.text
 
-            # Markdown을 HTML로 변환
-            html = markdown.markdown(
-                markdown_text,
-                extensions=[
-                    "extra",  # 테이블, 각주 등
-                    "codehilite",  # 코드 하이라이팅
-                    "toc",  # 목차
-                    "nl2br",  # 줄바꿈
-                    "sane_lists",  # 리스트 처리
-                ],
-            )
-            db_model.document = html
+            if markdown_text:
+                # Markdown을 HTML로 변환
+                html = markdown.markdown(
+                    markdown_text,
+                    extensions=[
+                        "extra",  # 테이블, 각주 등
+                        "codehilite",  # 코드 하이라이팅
+                        "toc",  # 목차
+                        "nl2br",  # 줄바꿈
+                        "sane_lists",  # 리스트 처리
+                    ],
+                )
+                db_model.document = html
+            else:
+                db_model.document = ""
         except Exception as e:
             db_model.document = f"README 변환 실패: {e}"
         finally:

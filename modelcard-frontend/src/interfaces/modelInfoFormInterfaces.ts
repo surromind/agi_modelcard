@@ -63,7 +63,9 @@ export interface IModelInfoForm {
   license_id: number,
   performance_metric: string,
   performance_score: number | string,
-  git_url: string
+  git_url: string,
+  model_documentation_file?: FileList | null,
+  documentation_markdown?: string | null,
   state?: BadgeTypeCodes | string
 }
 

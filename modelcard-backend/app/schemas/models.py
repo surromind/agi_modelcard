@@ -53,6 +53,7 @@ class ModelCardCreateRequest(BaseModel):
     size: Optional[int] = None
     performance_metric: Optional[str] = None
     performance_score: Optional[float] = None
+    documentation_markdown: Optional[str] = None
 
 
 class ModelCardCreate(ModelCardCreateRequest):
@@ -89,6 +90,7 @@ class ModelCardUpdate(BaseModel):
     size: Optional[int]
     performance_metric: Optional[str]
     performance_score: Optional[float]
+    documentation_markdown: Optional[str] = None
     deleted_at: Optional[datetime] = None
     updated_by: str
 
@@ -105,3 +107,4 @@ class ModelCardUpdateRequest(BaseModel):
     size: Optional[int] = None
     performance_metric: Optional[str] = None
     performance_score: Optional[float] = None
+    documentation_markdown: Optional[str] = None

@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
-from sqlalchemy import TIMESTAMP, BigInteger, Float, ForeignKey
+from sqlalchemy import TIMESTAMP, BigInteger, Float, ForeignKey, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db_models.base import BaseFile, BaseModel
@@ -122,10 +122,11 @@ class Model(BaseModel):
     name: Mapped[str]
     description: Mapped[str]
     state: Mapped[str]
-    git_url: Mapped[str]
+    git_url: Mapped[Optional[str]]
     size: Mapped[Optional[int]] = mapped_column(type_=BigInteger)
     performance_metric: Mapped[Optional[str]]
     performance_score: Mapped[Optional[float]] = mapped_column(type_=Float)
+    documentation_markdown: Mapped[Optional[str]] = mapped_column(type_=Text)
     created_at: Mapped[datetime] = mapped_column(
         type_=TIMESTAMP, insert_default=datetime.now
     )

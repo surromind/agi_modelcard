@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from sqlalchemy import TIMESTAMP, BigInteger
 from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column
@@ -30,7 +31,7 @@ class BaseFile(BaseModel):
     path: Mapped[str]
     size: Mapped[int] = mapped_column(type_=BigInteger)
     extension: Mapped[str]
-    deleted_at: Mapped[datetime] = mapped_column(type_=TIMESTAMP)
+    deleted_at: Mapped[Optional[datetime]] = mapped_column(type_=TIMESTAMP)
     created_at: Mapped[datetime] = mapped_column(type_=TIMESTAMP)
     created_by: Mapped[str]
     updated_at: Mapped[datetime] = mapped_column(type_=TIMESTAMP)
